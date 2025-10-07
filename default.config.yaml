@@ -5,6 +5,7 @@ pip_packages: []
 
 brew_formulae:
   - name: kubectl
+  - name: derailed/k9s/k9s
 
 brew_casks:
   - name: visual-studio-code
