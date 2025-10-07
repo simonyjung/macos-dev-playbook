@@ -1,7 +1,15 @@
-- name: Install global Pip packages.
+- name: Install global Pip packages
   pip:
     name: "{{ item.name | default(item) }}"
     state: "{{ item.state | default('present') }}"
     version: "{{ item.version | default(omit) }}"
     executable: "{{ item.executable | default('pip3') }}"
   loop: "{{ pip_packages }}"
+
+- name: Install Homebrew formulae
+  community.general.homebrew:
+    name: "{{ item.name | default(item) }}"
+    state: present
+  environment:
+    PATH: "/opt/homebrew/bin:{{ ansible_env.PATH }}"
+  loop: "{{ brew_formulae }}"
