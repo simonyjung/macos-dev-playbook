@@ -16,7 +16,7 @@
 
 - name: Install Homebrew casks
   community.general.homebrew_cask:
-    name: "{{ item.name | default(item) }}
+    name: "{{ item.name | default(item) }}"
     state: present
   environment:
     PATH: "/opt/homebrew/bin:{{ ansible_env.PATH }}"
