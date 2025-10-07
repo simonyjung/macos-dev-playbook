@@ -1,0 +1,6 @@
+---
+- name: Configure host
+  hosts: localhost
+  tasks:
+    - import_tasks: tasks/extra-packages.yaml
+      tags: ['extra-packages']
