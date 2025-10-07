@@ -1,8 +1,6 @@
 ---
 - name: Retrieve SSH private key from 1Password and save to file
   hosts: localhost
-  connection: local
-  gather_facts: false
   vars:
     # REQUIRED (set via --extra-vars or here)
     op_item_title: "kyjung ssh"        # Title of the 1Password item
