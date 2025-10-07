@@ -4,7 +4,87 @@
 
   vars_files:
     - default.config.yaml
+
+  vars:
+    # Add packages you want after installing brew
+    homebrew_formulae: [git, wget]
+    homebrew_casks: []
+    shell_profiles:
+      - "{{ lookup('env','HOME') + '/.zprofile' }}"
+      - "{{ lookup('env','HOME') + '/.zshrc' }}"
+      - "{{ lookup('env','HOME') + '/.bash_profile' }}"
+      - "{{ lookup('env','HOME') + '/.bashrc' }}"
   
   tasks:
+    - name: Check for Xcode Command Line Tools (required by Homebrew)
+      ansible.builtin.command: xcode-select -p
+      register: xcode_select_check
+      changed_when: false
+      failed_when: false
+  
+    - name: Fail if Xcode Command Line Tools are missing
+      ansible.builtin.fail:
+        msg: >-
+          Xcode Command Line Tools are not installed.
+          Install them once (GUI) with: `xcode-select --install`
+          Then re-run this playbook.
+      when: xcode_select_check.rc != 0
+    
     - import_tasks: tasks/extra-packages.yaml
       tags: ['extra-packages']
+
+    - name: Determine expected Homebrew prefix (arm64 vs x86_64)
+      ansible.builtin.set_fact:
+        brew_prefix: "{{ '/opt/homebrew' if (ansible_facts['architecture'] | lower) in ['arm64', 'aarch64'] else '/usr/local' }}"
+        brew_bin: "{{ ('/opt/homebrew/bin/brew' if (ansible_facts['architecture'] | lower) in ['arm64', 'aarch64'] else '/usr/local/bin/brew') }}"
+
+    - name: Check if brew is already installed
+      ansible.builtin.stat:
+        path: "{{ brew_bin }}"
+      register: brew_stat
+
+    - name: Install Homebrew (official script, non-interactive)
+      ansible.builtin.shell: |
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      environment:
+        NONINTERACTIVE: "1"
+      args:
+        creates: "{{ brew_bin }}"
+      when: not brew_stat.stat.exists
+
+    - name: Ensure brew shellenv is present in user shell profiles
+      ansible.builtin.lineinfile:
+        path: "{{ item }}"
+        create: yes
+        line: "eval \"$({{ brew_prefix }}/bin/brew shellenv)\""
+        insertafter: EOF
+      loop: "{{ shell_profiles }}"
+      register: shellenv_lines
+
+    - name: Export brew env for current run (so subsequent tasks see brew)
+      ansible.builtin.shell: |
+        eval "$({{ brew_prefix }}/bin/brew shellenv)"
+        echo -n "$HOMEBREW_PREFIX"
+      register: brew_env_prefix
+      changed_when: false
+
+    - name: Show detected Homebrew prefix
+      ansible.builtin.debug:
+        msg: "Homebrew prefix: {{ brew_env_prefix.stdout | default(brew_prefix) }}"
+
+    - name: Install Homebrew formulae
+      community.general.homebrew:
+        name: "{{ homebrew_formulae }}"
+        state: present
+      environment:
+        PATH: "{{ brew_prefix }}/bin:{{ ansible_env.PATH }}"
+      when: homebrew_formulae | length > 0
+
+    - name: Install Homebrew casks
+      community.general.homebrew_cask:
+        name: "{{ homebrew_casks }}"
+        state: present
+      environment:
+        PATH: "{{ brew_prefix }}/bin:{{ ansible_env.PATH }}"
+      when: homebrew_casks | length > 0
+
