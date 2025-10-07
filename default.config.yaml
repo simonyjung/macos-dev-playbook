@@ -7,7 +7,6 @@ brew_formulae:
   - name: kubectl
   - name: derailed/k9s/k9s
   - name: starship
-  - name: kitty
   - name: nvim
   - name: bat
   - name: eza
@@ -15,6 +14,9 @@ brew_formulae:
 brew_casks:
   - name: visual-studio-code
   - name: dbeaver-community
+  - name: kitty
   - name: 1password
   - name: tailscale
+  # Media
   - name: spotify
+  - name: steam
