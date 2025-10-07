@@ -4,3 +4,31 @@
   register: op_version
   failed_when: op_version.rc != 0
   changed_when: false
+- name: Fetch 1Password item JSON
+  vars:
+    op_item_title: 'kyjung ssh'
+    op_vault: 'Private'
+    op_cmd: >-
+      op item get
+      "{{ op_item_title }}"
+      {% if op_vault|length > 0 %} --vault "{{ op_vault }}" {% endif %}
+      --format json
+  command: "{{ op_cmd }}"
+  register: op_item_json
+  no_log: true
+  environment: >-
+    {{ {} | combine((op_session_name|length > 0) | ternary({ op_session_name: op_session_value }, {})) }}
+  changed_when: false
+- name: Parse private key value from op JSON
+  set_fact:
+    ssh_private_key: >-
+      {{ (op_item_json.stdout | from_json).details.fields
+         | selectattr('label','equalto', op_key_label)
+         | map(attribute='value')
+         | first | default('') }}
+  when: op_item_json.stdout is defined
+  no_log: true
+- name: Fail if private key not found
+  fail:
+    msg: "Could not extract private key."
+  when: ssh_private_key | length == 0
