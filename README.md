@@ -6,7 +6,7 @@ This playbook automates most of the steps to configure a new mac for development
 # Installation
 
 1. Install xcode command line tools  
-`xcode-select --install`
+`xcode-select --install`  
 2. Install Ansible  
  i. Run the following command to add Python 3 to your $PATH:  
  `export PATH="$HOME/Library/Python/3.9/bin:/opt/homebrew/bin:$PATH"`  
