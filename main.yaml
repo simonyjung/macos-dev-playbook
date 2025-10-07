@@ -48,6 +48,7 @@
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       environment:
         NONINTERACTIVE: "1"
+      become: yes
       args:
         creates: "{{ brew_bin }}"
       when: not brew_stat.stat.exists
