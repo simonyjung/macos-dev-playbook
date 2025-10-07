@@ -16,6 +16,7 @@ brew_casks:
   - name: dbeaver-community
   - name: kitty
   - name: 1password
+  - name: 1password-cli
   - name: tailscale
   # Media
   - name: obsidian
