@@ -17,9 +17,9 @@
           Install them once (GUI) with: `xcode-select --install`
           Then re-run this playbook.
       when: xcode_select_check.rc != 0
-
-    - import_tasks: tasks/get-ssh-key.yaml
     
     - import_tasks: tasks/extra-packages.yaml
       tags: ['extra-packages']
+
+    - import_tasks: tasks/get-ssh-key.yaml
 
