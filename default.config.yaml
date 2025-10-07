@@ -6,3 +6,5 @@ pip_packages: []
 brew_formulae:
   - name: kubectl
 
+brew_casks:
+  - name: visual-studio-code
