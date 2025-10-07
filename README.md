@@ -14,4 +14,6 @@ This playbook automates most of the steps to configure a new mac for development
  iii. Install Ansible: `pip3 install ansible`
 3. Clone this repository  
 `git clone https://github.com/simonyjung/macos-dev-playbook.git`
-4. Run `ansible-playbook main.yaml --ask-become-pass` inside the repository directory. Enter your macOS account password when propted for the 'BECOME' password.
+4. Install required roles and collections  
+`ansible-galaxy install -r requirements.yaml`
+6. Run `ansible-playbook main.yaml --ask-become-pass` inside the repository directory. Enter your macOS account password when propted for the 'BECOME' password.
