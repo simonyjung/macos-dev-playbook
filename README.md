@@ -6,14 +6,16 @@ This playbook automates most of the steps to configure a new mac for development
 # Installation
 
 1. Install xcode command line tools  
-`xcode-select --install`  
-2. Install Ansible  
+`xcode-select --install`
+3. Install Ansible  
  i. Run the following command to add Python 3 to your $PATH:  
  `export PATH="$HOME/Library/Python/3.9/bin:/opt/homebrew/bin:$PATH"`  
  ii. Upgrade Pip: `sudo pip3 install --upgrade pip`  
  iii. Install Ansible: `pip3 install ansible`
-3. Clone this repository  
+4. Clone this repository  
 `git clone https://github.com/simonyjung/macos-dev-playbook.git`
-4. Install required roles and collections  
+5. Install required roles and collections  
 `ansible-galaxy install -r requirements.yaml`
-6. Run `ansible-playbook main.yaml --ask-become-pass` inside the repository directory. Enter your macOS account password when propted for the 'BECOME' password.
+6. Install brew  
+`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+8. Run `ansible-playbook main.yaml --ask-become-pass` inside the repository directory. Enter your macOS account password when propted for the 'BECOME' password.
