@@ -1,21 +1,6 @@
 ---
-- name: Retrieve SSH private key from 1Password
-  vars:
-    # REQUIRED (set via --extra-vars or here)
-    op_item_title: "kyjung ssh"        # Title of the 1Password item
-    op_vault: "Private"                # Vault name (optional; set "" to omit)
-    op_key_label: "private key"        # Field label inside the 1Password item that contains the private key
-    dest_path: "~/.ssh/kyjung"   # Destination path to write the key
-    dest_owner: "{{ lookup('env','USER') }}"
-    dest_mode: "0600"
-    # Optionally pass the OP session token into the env as op_session_token_name/ value
-    # Example session name: OP_SESSION_myaccount
-    # You can supply this by --extra-vars "op_session_name=OP_SESSION_myaccount op_session_value=...."
-    op_session_name: ""   # e.g. "OP_SESSION_myaccount"  (leave blank to use whatever OP env is already present)
-    op_session_value: ""  # optional: raw token value (use only if you can't export it manually)
-  tasks:
-    - name: Validate that op CLI is present
-      command: "op --version"
-      register: op_version
-      failed_when: op_version.rc != 0
-      changed_when: false
+- name: Validate that op CLI is present
+    command: "op --version"
+    register: op_version
+    failed_when: op_version.rc != 0
+    changed_when: false
