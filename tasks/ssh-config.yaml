@@ -1,0 +1,17 @@
+- name: Insert/Update ~/.ssh/config
+  ansible.builtin.blockinfile:
+    path: ~/.ssh/config
+    create: true
+    append_newline: true
+    prepend_newline: true
+    block: |
+      # GIT
+      Host git.kyjung.com
+          HostName git.kyjung.com
+          User git
+          IdentityFile ~/.ssh/kyjung
+      
+      Host github.com
+          HostName github.com
+          User git
+          IdentityFile ~/.ssh/kyjung
