@@ -6,7 +6,7 @@
     - default.config.yaml
 
   roles:
-    - role: geerlingguy.mac.homebrew
+    - name: geerlingguy.mac.homebrew
       tags: ['homebrew']
   
   tasks:
