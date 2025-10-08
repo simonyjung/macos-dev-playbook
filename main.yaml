@@ -18,7 +18,7 @@
       register: xcode_select_check
       changed_when: false
       failed_when: false
-  
+
     - name: Fail if Xcode Command Line Tools are missing
       ansible.builtin.fail:
         msg: >-
