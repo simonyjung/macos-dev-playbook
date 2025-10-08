@@ -1,3 +1,4 @@
+---
 - name: Insert/Update ~/.ssh/config
   ansible.builtin.blockinfile:
     path: ~/.ssh/config
@@ -8,7 +9,6 @@
           HostName git.kyjung.com
           User git
           IdentityFile ~/.ssh/kyjung
-      
       Host github.com
           HostName github.com
           User git
