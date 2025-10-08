@@ -27,3 +27,10 @@ homebrew_cask_apps:
   - name: obsidian
   - name: spotify
   - name: steam
+
+# --- Dock config ---
+configure_dock: true
+dockitems_remove:
+  - TV
+  - Podcasts
+  - Contacts
