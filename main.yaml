@@ -1,7 +1,7 @@
 ---
 - name: Configure host
   hosts: localhost
-  
+
   vars_files:
     - default.config.yaml
 
@@ -11,7 +11,7 @@
     - role: geerlingguy.mac.dock
       when: configure_dock
       tags: ['dock']
-  
+
   tasks:
     - name: Check for Xcode Command Line Tools
       ansible.builtin.command: xcode-select -p
@@ -26,7 +26,7 @@
           Install them once (GUI) with: `xcode-select --install`
           Then re-run this playbook.
       when: xcode_select_check.rc != 0
-    
+
     - import_tasks: tasks/extra-packages.yaml
       tags: ['extra-packages']
 
