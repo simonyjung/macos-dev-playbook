@@ -6,8 +6,11 @@
     - default.config.yaml
 
   roles:
-    - name: geerlingguy.mac.homebrew
+    - role: geerlingguy.mac.homebrew
       tags: ['homebrew']
+    - role: geerlingguy.mac.dock
+      when: configure_dock
+      tags: ['dock']
   
   tasks:
     - name: Check for Xcode Command Line Tools
