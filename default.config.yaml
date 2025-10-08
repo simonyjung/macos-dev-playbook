@@ -3,7 +3,9 @@ pip_packages: []
 #   state: present # present/absent/latest, default: present
 #   version: "0.16.3" # default: N/A
 
-brew_formulae:
+
+# --- Homebrew config ---
+homebrew_installed_Packages:
   - name: kubectl
   - name: derailed/k9s/k9s
   - name: starship
@@ -11,7 +13,10 @@ brew_formulae:
   - name: bat
   - name: eza
 
-brew_casks:
+homebrew_taps: []
+homebrew_cask_appdir: /Applications
+
+homebrew_cask_apps:
   - name: visual-studio-code
   - name: dbeaver-community
   - name: kitty
