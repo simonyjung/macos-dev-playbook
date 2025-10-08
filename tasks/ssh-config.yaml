@@ -2,8 +2,6 @@
   ansible.builtin.blockinfile:
     path: ~/.ssh/config
     create: true
-    append_newline: true
-    prepend_newline: true
     block: |
       # GIT
       Host git.kyjung.com
