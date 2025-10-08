@@ -5,9 +5,8 @@ This playbook automates most of the steps to configure a new mac for development
 
 # Installation
 
-1. Install xcode command line tools
-
-```xcode-select --install```
+1. Install xcode command line tools  
+`xcode-select --install`
 
 2. Install Ansible  
  i. Run the following command to add Python 3 to your $PATH:  
@@ -15,7 +14,7 @@ This playbook automates most of the steps to configure a new mac for development
  ii. Upgrade Pip: `sudo pip3 install --upgrade pip`  
  iii. Install Ansible: `pip3 install ansible`
 
-3. Export kyjung ssh key to .ssh/kyjung
+3. Export kyjung ssh key (1Password) to `.ssh/kyjung`
    
 4. Clone this repository  
 `git clone https://github.com/simonyjung/macos-dev-playbook.git`
