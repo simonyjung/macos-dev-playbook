@@ -26,6 +26,12 @@ jobs:
       - name: Install test dependencies.
         run: pip3 install yamllint ansible ansible-lint
 
+      - name: Install Ansible Galaxy deps
+        run: |
+          ansible-galaxy collection install -r requirements.yml --collections-path ./.ansible/collections
+          ansible-galaxy role install -r requirements.yml --roles-path ./.ansible/roles || true
+
+
       - name: Lint code.
         run: |
           yamllint .
