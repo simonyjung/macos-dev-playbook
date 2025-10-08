@@ -28,8 +28,8 @@ jobs:
 
       - name: Install Ansible Galaxy deps
         run: |
-          ansible-galaxy collection install -r requirements.yml --collections-path ./.ansible/collections
-          ansible-galaxy role install -r requirements.yml --roles-path ./.ansible/roles || true
+          ansible-galaxy collection install -r requirements.yaml --collections-path ./.ansible/collections
+          ansible-galaxy role install -r requirements.yaml --roles-path ./.ansible/roles || true
 
 
       - name: Lint code.
