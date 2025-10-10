@@ -16,10 +16,10 @@ This playbook automates most of the steps to configure a new mac for development
 
 3. Export kyjung ssh key (1Password) to `.ssh/kyjung`
    
-4. Clone this repository  
-`git clone https://github.com/simonyjung/macos-dev-playbook.git`
+4. Clone this repository and enter the repository directory
+`git clone https://github.com/simonyjung/macos-dev-playbook.git && cd macos-dev-playbook`
 
 5. Install required roles and collections  
 `ansible-galaxy install -r requirements.yaml`
 
-6. Run `ansible-playbook main.yaml --ask-become-pass` inside the repository directory. Enter your macOS account password when propted for the 'BECOME' password.
+6. Run `ansible-playbook main.yaml --ask-become-pass`. Enter your macOS account password when propted for the 'BECOME' password.
